@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+    "label": "Build with g++",
+    "type": "shell",
+    "command": "g++",
+    "args": [
+        "-std=c++17",
+        "-Iinclude",
+        "src/vector_field.cpp",
+        "examples/example_3.cpp",
+        "-o",
+        "vector_app.exe"
+    ],
+    "group": "build"
+},
+        {
+            "label": "Run Program",
+            "type": "shell",
+            "command": "${workspaceFolder}/vector_app.exe",
+            "group": "test",
+            "dependsOn": "Build with MSVC"
+        }
+    ]
+}
