@@ -19,39 +19,6 @@ ostream& operator << (ostream& os, const vector_3d& v) {
 }
 
 // Реализация методов grid
-// Реализация алгоритма Томаса (прогонки) для трёхдиагональных матриц
-// Решает систему уравнений: A * x = d, где A - трёхдиагональная матрица
-void grid::thomas_algorithm(const vector<double>& a,
-                            const vector<double>& b,
-                            const vector<double>& c,
-                            const vector<double>& d,
-                            vector<double>& x) {
-    int N = d.size();
-    vector<double> c_new(N, 0.0);
-    vector<double> d_new(N, 0.0);
-
-    if (fabs(b[0]) < 1e-15) {
-        return;
-    }
-
-    // Прямой ход прогонки
-    c_new[0] = c[0] / b[0];
-    d_new[0] = d[0] / b[0];
-
-    for (int i = 1; i < N; i++) {
-        double m = 1.0 / (b[i] - a[i] * c_new[i - 1]);
-        if (i < N - 1) {
-            c_new[i] = c[i] * m;
-        }
-        d_new[i] = (d[i] - a[i] * d_new[i - 1]) * m;
-    }
-
-    // Обратный ход прогонки
-    x[N - 1] = d_new[N - 1];
-    for (int i = N - 2; i >= 0; i--) {
-        x[i] = d_new[i] - c_new[i] * x[i + 1];
-    }
-}
 
 // Интегрирование уравнения Пуассона (для одномерного случая) для нахождения потенциала
 vector<double> grid::poisson_equation_integrate(const vector<double>& div_slice, double h) {
@@ -178,6 +145,8 @@ void grid::analyze_field() {
     cout << "\nresults in center (i=" << nx / 2 << ", x=" << (nx / 2) * dx << "):" << endl;
     cout << "  full field: " << operator()(nx / 2, center_j, center_k) << endl;
     cout << "  potential part: " << F_potential[nx / 2] << endl;
+    cout << "warning! y and z components are placed into solenoidal part due to 1D analysis" << endl;
+    cout << "they can contain both potential and solenoidal parts!" << endl;
     cout << "  solenoidal part: " << F_solenoidal[nx / 2] << endl;
     cout << "  sum of the solenoidal and potential parts: " << F_potential[nx / 2] + F_solenoidal[nx / 2] << endl;
     cout << "  error: "
