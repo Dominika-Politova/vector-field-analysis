@@ -18,12 +18,6 @@ private:
     int nx, ny, nz; // Количество элементов на сетке
     std::vector<vector_3d> data;
 
-    static void thomas_algorithm(const std::vector<double>& a,
-                                 const std::vector<double>& b,
-                                 const std::vector<double>& c,
-                                 const std::vector<double>& d,
-                                 std::vector<double>& x);
-
     static std::vector<double> poisson_equation_integrate(const std::vector<double>& div_slice, double h);
 
 public:
