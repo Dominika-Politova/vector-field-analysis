@@ -145,8 +145,6 @@ void grid::analyze_field() {
     cout << "\nresults in center (i=" << nx / 2 << ", x=" << (nx / 2) * dx << "):" << endl;
     cout << "  full field: " << operator()(nx / 2, center_j, center_k) << endl;
     cout << "  potential part: " << F_potential[nx / 2] << endl;
-    cout << "warning! y and z components are placed into solenoidal part due to 1D analysis" << endl;
-    cout << "they can contain both potential and solenoidal parts!" << endl;
     cout << "  solenoidal part: " << F_solenoidal[nx / 2] << endl;
     cout << "  sum of the solenoidal and potential parts: " << F_potential[nx / 2] + F_solenoidal[nx / 2] << endl;
     cout << "  error: "
